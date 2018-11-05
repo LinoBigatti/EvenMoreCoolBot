@@ -1,10 +1,11 @@
 import discord
+from discord.ext.commands import Bot
 import time
 import json
 
-x = 1
+x = 0xffffff
 
-bot = discord.Client()
+bot = Bot("c!")
 
 config_raw = open("config.json", "r")
 config = json.load(config_raw)
@@ -18,6 +19,11 @@ async def on_ready():
 	print(bot.user.name)
 	print(bot.user.id)
 	print('------')
+
+@bot.command(pass_context=True)
+async def start(ctx, Role : discord.Role):
+	await bot.edit_role(ctx.message.server, Role, colour=discord.Colour(x))
+	await bot.say("Success!")
 
 def main():
 	bot.run(TOKEN)
